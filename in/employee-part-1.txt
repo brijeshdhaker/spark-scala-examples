@@ -1,0 +1,5 @@
+1206	Brijesh	45000	Technical manager
+1207	Keshvi	45000	Proof reader
+1208	Tejas	40000	Technical writer
+1209	Mohan   40000	Hr Admin
+1210	Gurpreet    30000	Op Admin

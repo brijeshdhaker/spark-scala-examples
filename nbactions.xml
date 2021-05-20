@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    
+    <action>
+        <actionName>CUSTOM-clean</actionName>
+        <displayName>clean</displayName>
+        <goals>
+            <goal>clean</goal>
+        </goals>
+    </action>
+    
+    <action>
+        <actionName>CUSTOM-clean_package</actionName>
+        <displayName>clean_package</displayName>
+        <goals>
+            <goal>clean</goal>
+            <goal>package</goal>
+        </goals>
+    </action>
+    
+    <action>
+        <actionName>CUSTOM-cluster_package</actionName>
+        <displayName>cluster_package</displayName>
+        <activatedProfiles>
+            <activatedProfile>spark-cluster</activatedProfile>
+        </activatedProfiles>
+        <goals>
+            <goal>clean</goal>
+            <goal>package</goal>
+        </goals>
+    </action>
+    
+    <action>
+        <actionName>CUSTOM-spark-local</actionName>
+        <displayName>spark-local</displayName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+        </goals>
+        <activatedProfiles>
+            <activatedProfile>spark-cluster</activatedProfile>
+        </activatedProfiles>
+        <properties>
+            <exec.workingDirectory>D:/apps/hostpath/spark</exec.workingDirectory>
+            <exec.executable>${basedir}/spark-run.cmd</exec.executable>
+            <exec.args>com.spark.tutorial.rdd.collect.CollectExample</exec.args>
+            <Env.EXE_TYPE>LOCAL</Env.EXE_TYPE>
+            <Env.SPARK_HOME>D:\apps\spark-3.0.1-hadoop3.2.0</Env.SPARK_HOME>
+            <Env.HADOOP_HOME>D:\apps\winutils-master\hadoop-3.2.0</Env.HADOOP_HOME>
+        </properties>
+    </action>
+    
+    <action>
+        <actionName>CUSTOM-spark-docker-defaultfs</actionName>
+        <displayName>spark-docker-defaultfs</displayName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+        </goals>
+        <activatedProfiles>
+            <activatedProfile>spark-cluster</activatedProfile>
+        </activatedProfiles>
+        <properties>
+            <exec.workingDirectory>${basedir}</exec.workingDirectory>
+            <exec.executable>${basedir}/spark-run.cmd</exec.executable>
+            <exec.args>com.spark.tutorial.rdd.airports.AirportsInUsaProblem</exec.args>
+            <Env.EXE_TYPE>DOCKER_FS</Env.EXE_TYPE>
+        </properties>
+    </action>
+    
+    <action>
+        <actionName>CUSTOM-spark-docker-hdfs</actionName>
+        <displayName>spark-docker-hdfs</displayName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+        </goals>
+        <properties>
+            <exec.workingDirectory>${basedir}</exec.workingDirectory>
+            <exec.executable>${basedir}/spark-run.cmd</exec.executable>
+            <exec.args>com.spark.tutorial.rdd.airports.AirportsByLatitudeProblem</exec.args>
+            <Env.EXE_TYPE>DOCKER</Env.EXE_TYPE>
+        </properties>
+    </action>
+    
+    <action>
+        <actionName>run.single.main</actionName>
+        <preAction>build-with-dependencies</preAction>
+        <packagings>
+            <packaging>*</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+        </goals>
+        <properties>
+            <exec.args>-classpath %classpath ${packageClassName} 'file:///D:/apps/hostpath/spark/' 'file:///D:/apps/hostpath/spark/out'</exec.args>
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>${classPathScope}</exec.classpathScope>
+        </properties>
+    </action>
+    
+    <action>
+        <actionName>debug.single.main</actionName>
+        <packagings>
+            <packaging>*</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+        </goals>
+        <properties>
+            <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath ${packageClassName} 'file:///E:/apps/hostpath/spark/' 'file:///E:/apps/hostpath/spark/out'</exec.args>
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>${classPathScope}</exec.classpathScope>
+            <jpda.listen>true</jpda.listen>
+        </properties>
+    </action>
+    
+</actions>
