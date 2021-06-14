@@ -16,8 +16,8 @@ services:
 #    command: /usr/local/bin/start-hdfs.sh
 #    hostname: namenode
 #    volumes:
-#      - /e/apps/hostpath/spark/data:/data
-#      - /e/apps/hostpath/spark/in:/in
+#      - /apps/hostpath/spark/data:/data
+#      - /apps/hostpath/spark/in:/in
 #    environment:
 #      HDFS_MODE: SingleNode    
 #
@@ -30,7 +30,7 @@ services:
     command: /usr/local/bin/start-hive.sh
 #    restart: always
     volumes:
-      - /e/apps/hostpath/hive:/user/hive
+      - /apps/hostpath/hive:/user/hive
     environment:
       DATA_DIR: /user/hive/warehouse
     ports:

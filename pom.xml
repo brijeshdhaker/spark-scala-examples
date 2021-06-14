@@ -71,7 +71,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>D:/apps/hostpath/spark/</outputDirectory>
+                            <outputDirectory>/apps/hostpath/spark/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/target</directory>
@@ -89,6 +89,7 @@
     </build>
     
     <dependencies>
+
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
             <groupId>org.scala-lang</groupId>
