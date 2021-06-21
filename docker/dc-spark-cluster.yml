@@ -5,14 +5,14 @@ version: '3.1'
 services:
 #    
   spark-master:
-    image: spark:3.0.1
+    image: spark:3.1.1
     container_name: spark-master
     hostname: spark-master
     ports:
       - 7077:7077
       - 8080:8080
     volumes:
-      - /apps/hostpath:/d/apps/hostpath
+      - /apps/hostpath:/apps/hostpath
       - /apps/hostpath/spark:/usr/local/spark/work-dir
     environment:
       NODE_TYPE: MASTER
@@ -20,7 +20,7 @@ services:
 
 #
   spark-node01:
-    image: spark:3.0.1
+    image: spark:3.1.1
     container_name: spark-node01
     hostname: spark-node01
     depends_on:
@@ -28,28 +28,28 @@ services:
     ports:
       - 8081:8081
     volumes:
-      - /apps/hostpath:/d/apps/hostpath
+      - /apps/hostpath:/apps/hostpath
       - /apps/hostpath/spark:/usr/local/spark/work-dir
     environment:
       NODE_TYPE: WORKER
       WEBUI_PORT: 8081
 
 #
-#  spark-node02:
-#    image: spark:3.0.1-3.2.0
-#    container_name: spark-node02
-#    hostname: spark-node02
-#    depends_on:
-#      - spark-master
-#    ports:
-#      - 8082:8082
-#    volumes:
-#      - /apps/hostpath:/d/apps/hostpath
-#      - /apps/hostpath/spark:/usr/local/spark/work-dir
-#    environment:
-#      NODE_TYPE: WORKER
-#      WEBUI_PORT: 8082
-#
+  spark-node02:
+    image: spark:3.1.1
+    container_name: spark-node02
+    hostname: spark-node02
+    depends_on:
+      - spark-master
+    ports:
+      - 8082:8082
+    volumes:
+      - /apps/hostpath:/apps/hostpath
+      - /apps/hostpath/spark:/usr/local/spark/work-dir
+    environment:
+      NODE_TYPE: WORKER
+      WEBUI_PORT: 8082
+
 
 #
   namenode:
@@ -64,7 +64,7 @@ services:
     hostname: namenode
     volumes:
       - /apps/hostpath/spark/data:/data
-      - /apps/hostpath:/d/apps/hostpath
+      - /apps/hostpath:/apps/hostpath
     environment:
       HDFS_MODE: SingleNode  
 
@@ -79,7 +79,7 @@ services:
 #      - mysqlserver
 #    volumes:
 #      - /apps/hostpath/hive/warehouse:/user/hive/warehouse
-#      - /apps/hostpath:/d/apps/hostpath
+#      - /apps/hostpath:/apps/hostpath
 #    environment:
 #      DATA_DIR: /user/hive/warehouse
 #    ports:
@@ -88,7 +88,7 @@ services:
 
 
 #  history-server:
-#    image: spark:3.0.1-3.2.0
+#    image: spark:3.1.1
 #    container_name: history-server
 #    hostname: history-server
 #    depends_on:
@@ -96,7 +96,7 @@ services:
 #    ports:
 #      - 18080:18080
 #    volumes:
-#      - /apps/hostpath/spark:/d/apps/hostpath/spark
+#      - /apps/hostpath/spark:/apps/hostpath/spark
 #    environment:
 #      NODE_TYPE: LOGSERVER
 
