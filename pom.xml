@@ -15,7 +15,7 @@
         <encoding>UTF-8</encoding>
         <scala.tools.version>2.12</scala.tools.version>
         <scala.version>2.12.10</scala.version>
-        <spark.version>3.0.1</spark.version>
+        <spark.version>3.1.2</spark.version>
         <classifier>local</classifier>
     </properties>
 
