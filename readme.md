@@ -19,11 +19,30 @@ executor_cores=3
 receiver_max_rate=100
 receiver_initial_rate=30
 
+#
+#
+# Run on a YARN cluster
+export HADOOP_CONF_DIR=/opt/hadoop-2.7.4/etc/hadoop
+#
+./bin/spark-submit \
+--class org.apache.spark.examples.SparkPi \
+--master yarn \
+--deploy-mode cluster \
+--executor-memory 1G \
+--num-executors 2 \
+--conf "spark.yarn.archive=hdfs:///apps/spark-2.3.1/spark-2.3.1-jars.zip" \
+/opt/spark-2.3.1/examples/jars/spark-examples_2.11-2.3.1.jar 2
+
+#
+#
+#
 spark-submit --master yarn --deploy-mode cluster \
 --name <my-job-name> \
 --class <main-class> \
 --driver-memory 2g \
---num-executors ${num_executors} --executor-cores ${executor_cores} --executor-memory ${executor_memory} \
+--num-executors ${num_executors} 
+--executor-cores ${executor_cores} 
+--executor-memory ${executor_memory} \
 --queue <realtime_queue> \
 --files <hdfs:///path/to/log4j-yarn.properties> \
 --conf spark.driver.extraJavaOptions=-Dlog4j.configuration=log4j-yarn.properties \

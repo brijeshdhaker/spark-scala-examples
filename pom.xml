@@ -13,15 +13,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <encoding>UTF-8</encoding>
-        <scala.tools.version>2.12</scala.tools.version>
-        <scala.version>2.12.10</scala.version>
-        <spark.version>3.1.2</spark.version>
+        <scala.tools.version>2.11</scala.tools.version>
+        <scala.version>2.11.1</scala.version>
+        <spark.version>2.4.0-cdh6.3.2</spark.version>
         <classifier>local</classifier>
     </properties>
 
     <build>
         <finalName>spark-scala-examples</finalName>
         <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -109,12 +110,39 @@
             <version>${spark.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-yarn_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming_2.11 -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_${scala.tools.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
+        <!--
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.9</version>
+        </dependency>
+        -->
 
     </dependencies>
 
@@ -125,6 +153,13 @@
                 <classifier>docker</classifier>
             </properties>
             <dependencies>
+
+                <dependency>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                    <version>${scala.version}</version>
+                </dependency>
+
                 <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11 -->
                 <dependency>
                     <groupId>org.apache.spark</groupId>
@@ -143,6 +178,20 @@
 
                 <dependency>
                     <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-hive_${scala.tools.version}</artifactId>
+                    <version>${spark.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-yarn_${scala.tools.version}</artifactId>
+                    <version>${spark.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
                     <artifactId>spark-mllib_${scala.tools.version}</artifactId>
                     <version>${spark.version}</version>
                     <scope>provided</scope>
@@ -154,9 +203,17 @@
                     <artifactId>spark-streaming_${scala.tools.version}</artifactId>
                     <version>${spark.version}</version>
                     <scope>provided</scope>
-                </dependency> 
+                </dependency>
+
             </dependencies>
         </profile>
     </profiles>
-    
+
+
+    <repositories>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+    </repositories>
 </project>
