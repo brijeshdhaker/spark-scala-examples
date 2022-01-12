@@ -21,17 +21,25 @@ receiver_initial_rate=30
 
 #
 #
+mvn exec:exec@run-local -Drunclass=com.spark.SparkPi -Dparams="50"
+
+
+#
+#
 # Run on a YARN cluster
 export HADOOP_CONF_DIR=/opt/hadoop-2.7.4/etc/hadoop
 #
-./bin/spark-submit \
---class org.apache.spark.examples.SparkPi \
+spark-submit \
+--name  spark-scala-example \
 --master yarn \
 --deploy-mode cluster \
---executor-memory 1G \
+--driver-memory 1024m \
+--driver-cores 1 \
 --num-executors 2 \
---conf "spark.yarn.archive=hdfs:///apps/spark-2.3.1/spark-2.3.1-jars.zip" \
-/opt/spark-2.3.1/examples/jars/spark-examples_2.11-2.3.1.jar 2
+--executor-memory 640m \
+--executor-cores 2 \
+--class com.spark.SparkPi \
+target/spark-scala-examples-1.0-SNAPSHOT.jar
 
 #
 #

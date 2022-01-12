@@ -43,3 +43,4 @@ build/
 /user-service/jars/
 /webui-service/jars/
 /common-utilities/avro/
+/dependency-reduced-pom.xml

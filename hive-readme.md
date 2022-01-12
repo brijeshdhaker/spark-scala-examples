@@ -50,7 +50,7 @@ LOAD DATA LOCAL INPATH "/user/hive/in/employee.txt" OVERWRITE INTO TABLE employe
 
 LOAD DATA LOCAL INPATH "/e/apps/hostpath/spark/in/employee-part-1.txt" OVERWRITE INTO TABLE employee PARTITION("designation");
 
-CREATE TABLE insert_partition_demo (   
+CREATE TABLE insert_partition_demo (
    id int,
    name varchar(10)
 )
