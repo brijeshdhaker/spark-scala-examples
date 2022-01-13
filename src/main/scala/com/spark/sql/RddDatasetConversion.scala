@@ -33,6 +33,7 @@ object RddDatasetConversion {
     responseDataset.show(20)
 
     for (response <- responseDataset.rdd.collect()) println(response)
+
   }
 
   def toInt(split: String): Option[Double] = {

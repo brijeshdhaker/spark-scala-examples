@@ -1,6 +1,7 @@
-package com.spark.pairRdd.aggregation.reducebykey.housePrice
+package com.spark.pairRdd.aggregation.aggregatebykey
 
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /*
@@ -32,7 +33,21 @@ Sample output:
  3, 1 and 2 mean the number of bedrooms. 325000 means the average price of houses with 3 bedrooms is 325000.
 */
 
-object AverageHousePriceSolution {
+object MaxHousePriceByBedroom {
+
+  // 1st Argument : specify what to do with value of the key if the same key appears inside same partition
+  def seqMax(accumulator : Double, element:(Int, Double)) : Double ={
+      if(accumulator > element._2){
+        return accumulator;
+      }else{
+        return element._2
+      }
+  }
+
+  // 2nd Argument : specify what to do with the values of same key across all other partitions
+  def comMax(accumulator1 : Double, accumulator2 : Double) : Double ={
+    return accumulator1.max(accumulator2)
+  }
 
   def main(args: Array[String]) {
 
@@ -47,15 +62,16 @@ object AverageHousePriceSolution {
 
     val housePricePairRdd = cleanedLines.map(line => (line.split(",")(3), (1, line.split(",")(2).toDouble)))
 
-    val housePriceTotal = housePricePairRdd.reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
+    // 1st Argument : specify what to do with value of the key if the same key appears inside same partition
+    val seq_max = (accu:Double, v:(Int, Double)) => (if(accu > v._2) accu else v._2)
+
+    // 2nd Argument : specify what to do with the values of same key across all other partitions
+    val comb_max = (accu1:Double, accu2:Double) => accu1.max(accu2)
+
+    val housePriceMax = housePricePairRdd.aggregateByKey(0.00)(seq_max, comb_max)
 
     println("housePriceTotal: ")
-    for ((s, (bedroom, total)) <- housePriceTotal.collect()) println(bedroom + " : " + total)
+    for ((bedroom, max) <- housePriceMax.collect()) println(bedroom + " : " + max)
 
-    val housePriceAvg = housePriceTotal.mapValues(avgCount => avgCount._2 / avgCount._1)
-
-    println("housePriceAvg: ")
-    for ((bedroom, avg) <- housePriceAvg.collect()) println(bedroom + " : " + avg)
   }
 }
-case class AHCount(count: Any, total: Any)

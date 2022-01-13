@@ -21,8 +21,8 @@ object BroadcastJoinExample {
     // Disable Broadcast Join
     spark.conf.set("spark.sql.autoBroadcastJoinThreshold",-1)
 
-    val df1 = spark.read.json("hdfs://namenode:9000/datasets/github.json")
-    val df2 = spark.read.json("hdfs://namenode:9000/datasets/github-top20.json")
+    val df1 = spark.read.json("/datasets/github.json")
+    val df2 = spark.read.json("/datasets/github-top20.json")
 
     spark.conf.set("spark.sql.shuffle.partitions", 3)
 
