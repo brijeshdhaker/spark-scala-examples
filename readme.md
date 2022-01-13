@@ -27,7 +27,17 @@ mvn exec:exec@run-local -Drunclass=com.spark.SparkPi -Dparams="50"
 #
 #
 # Run on a YARN cluster
-export HADOOP_CONF_DIR=/opt/hadoop-2.7.4/etc/hadoop
+export HADOOP_CONF_DIR=/opt/sandbox/hadoop-3.2.1/etc/hadoop
+export YARN_CONF_DIR=/opt/sandbox/hadoop-3.2.1/etc/hadoop
+
+#
+spark-submit \
+--name  spark-scala-example \
+--master local[4] \
+--packages org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 \
+--class com.spark.streaming.structure.KafkaStructuredStream \
+target/spark-scala-examples-1.0-SNAPSHOT.jar
+
 #
 spark-submit \
 --name  spark-scala-example \
@@ -38,7 +48,8 @@ spark-submit \
 --num-executors 2 \
 --executor-memory 640m \
 --executor-cores 2 \
---class com.spark.SparkPi \
+--packages org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+--class com.spark.streaming.structure.KafkaStructuredStream \
 target/spark-scala-examples-1.0-SNAPSHOT.jar
 
 #

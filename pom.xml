@@ -102,10 +102,16 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
+                            <environmentVariables>
+                                <HADOOP_CONF_DIR>/opt/sandbox/hadoop-3.2.1/etc/hadoop</HADOOP_CONF_DIR>
+                                <YARN_CONF_DIR>/opt/sandbox/hadoop-3.2.1/etc/hadoop</YARN_CONF_DIR>
+                            </environmentVariables>
                             <executable>spark-submit</executable>
                             <arguments>
                                 <argument>--master</argument>
                                 <argument>local[4]</argument>
+                                <argument>--packages</argument>
+                                <argument>org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2</argument>
                                 <argument>--class</argument>
                                 <argument>${runclass}</argument>
                                 <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
@@ -144,6 +150,8 @@
                                 <argument>2</argument>
                                 <!-- -->
                                 <!-- -->
+                                <argument>--packages</argument>
+                                <argument>org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2</argument>
                                 <argument>--class</argument>
                                 <argument>${runclass}</argument>
                                 <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
@@ -182,6 +190,8 @@
                                 <argument>2</argument>
                                 <!-- -->
                                 <!-- -->
+                                <argument>--packages</argument>
+                                <argument>org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2</argument>
                                 <argument>--class</argument>
                                 <argument>${runclass}</argument>
                                 <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
@@ -266,11 +276,13 @@
             <version>${spark.version}</version>
         </dependency>
 
-       <!-- <dependency>
+       <!--
+       <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-yarn_${spark.scala}</artifactId>
             <version>${spark.version}</version>
-        </dependency>-->
+        </dependency>
+        -->
 
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -278,17 +290,20 @@
             <version>${spark.version}</version>
         </dependency>
 
+        <!-- org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2 -->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-kafka-0-10_${spark.scala}</artifactId>
             <version>${spark.version}</version>
         </dependency>
 
+        <!-- org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 -->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-sql-kafka-0-10_${spark.scala}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+
         <!--
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -383,12 +398,14 @@
                     <scope>provided</scope>
                 </dependency>
 
-                <!--<dependency>
+                <!--
+                <dependency>
                     <groupId>org.apache.spark</groupId>
                     <artifactId>spark-yarn_${spark.scala}</artifactId>
                     <version>${spark.version}</version>
                     <scope>provided</scope>
-                </dependency>-->
+                </dependency>
+                -->
 
                 <dependency>
                     <groupId>org.apache.spark</groupId>
