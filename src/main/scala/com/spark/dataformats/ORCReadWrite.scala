@@ -1,6 +1,6 @@
 package com.spark.dataformats
 
-import org.apache.spark.sql.{SparkSession}
+import org.apache.spark.sql.SparkSession
 
 object ORCReadWrite extends App{
 

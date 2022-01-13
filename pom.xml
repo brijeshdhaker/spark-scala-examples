@@ -319,6 +319,12 @@
             <version>1.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
         <!-- Elastic Search : elasticsearch-spark-20_2.11 for spark-2.x.x-->
         <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-spark-20 -->
         <dependency>
@@ -331,6 +337,25 @@
                     <artifactId>spark-core_${spark.scala}</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Hadoop Dependencies -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>3.2.1</version>
         </dependency>
 
         <!-- HBase 2.4.9 -->
@@ -363,6 +388,9 @@
     <profiles>
         <profile>
             <id>yarn</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
                 <classifier>yarn</classifier>
             </properties>

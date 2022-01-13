@@ -35,7 +35,7 @@ object SparkStreamingFromDirectory {
       )
     )
 
-    val df = spark.readStream.schema(schema).json("file:///home/brijeshdhaker/dstreams/data/")
+    val df = spark.readStream.schema(schema).json("hdfs://namenode:9000/discretized-streams/data")
 
     df.printSchema()
 

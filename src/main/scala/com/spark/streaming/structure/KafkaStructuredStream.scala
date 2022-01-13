@@ -1,9 +1,9 @@
 package com.spark.streaming.structure
 
-import org.apache.spark.sql.{SparkSession, functions}
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.{OutputMode, Trigger}
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.{SparkSession, functions}
 
 import scala.concurrent.duration.DurationInt
 
@@ -26,8 +26,6 @@ object KafkaStructuredStream extends App {
   spark.conf.set("spark.sql.hive.convertMetastoreParquet", "false")
   spark.conf.set("spark.sql.parquet.writeLegacyFormat", "true")
   spark.conf.set("spark.sql.parquet.binaryAsString", "true")
-
-  import spark.implicits._
 
   // Create Schema for Dataframes
   val schema = new StructType()

@@ -13,8 +13,8 @@ class MyComplex(var x: Int, var y: Int) extends Serializable{
   }
 }
 
-import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.util.AccumulatorV2
+import org.apache.spark.{SparkConf, SparkContext}
 object ComplexAccumulatorV2 extends AccumulatorV2[MyComplex, MyComplex] {
   private val myc:MyComplex = new MyComplex(0,0)
 

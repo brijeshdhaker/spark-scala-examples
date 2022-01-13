@@ -1,6 +1,5 @@
 package com.spark.hbase.dataframe
 
-import org.apache.hadoop.hbase.spark.datasources.HBaseTableCatalog
 import org.apache.spark.sql.SparkSession
 
 object HBaseSparkInsert {
@@ -39,8 +38,8 @@ object HBaseSparkInsert {
       .appName("SparkByExamples.com")
       .getOrCreate()
 
-    import spark.implicits._
     import org.apache.hadoop.hbase.spark.datasources._
+    import spark.implicits._
 
     val df = spark.sparkContext.parallelize(data).toDF
 

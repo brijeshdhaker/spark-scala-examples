@@ -3,12 +3,10 @@ package com.spark.sparkStreaming
 /**
   * Created by Neha Priya on 09-07-2018.
   */
-import org.apache.spark.sql.functions._
 import org.apache.spark.sql._
-import java.sql.Timestamp
-
 import org.apache.spark.sql.streaming.OutputMode
 
+import java.sql.Timestamp
 import scala.io.Source
 
 

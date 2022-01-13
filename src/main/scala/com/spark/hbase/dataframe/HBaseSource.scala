@@ -18,11 +18,8 @@
 package com.spark.hbase.dataframe
 
 import org.apache.hadoop.hbase.spark.datasources.HBaseTableCatalog
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.apache.yetus.audience.InterfaceAudience
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{DataFrame, SQLContext}
 
 
 case class HBaseRecord(

@@ -1,7 +1,6 @@
 package com.spark.es
 
 import org.apache.spark.sql.SparkSession
-import org.elasticsearch.spark.sql._
 
 object WriteToElasticSearch {
 

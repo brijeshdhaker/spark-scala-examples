@@ -1,6 +1,6 @@
 package com.spark.sql.join
 
-import org.apache.log4j.{Level, Logger}
+import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 
 object SortMergeJoinExample {

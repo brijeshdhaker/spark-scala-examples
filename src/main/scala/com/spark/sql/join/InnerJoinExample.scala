@@ -2,7 +2,6 @@ package com.spark.sql.join
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.{SparkConf, SparkContext}
 
 
 object InnerJoinExample {

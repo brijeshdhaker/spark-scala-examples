@@ -1,11 +1,15 @@
 package com.spark
 
+
+import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.math.random
 
 /** Computes an approximation to pi */
 object SparkPi {
+
+
   def main(args: Array[String]) {
 
     val conf = new SparkConf().setAppName("Spark Pi")
@@ -22,5 +26,9 @@ object SparkPi {
 
     println("Pi is roughly " + 4.0 * count / n)
 
+
+    FileSystem.get(spark.hadoopConfiguration).listStatus(new Path("/user")).foreach( x => println(x.getPath))
+
+    //FileSystem.get(spark.hadoopConfiguration).append()
   }
 }

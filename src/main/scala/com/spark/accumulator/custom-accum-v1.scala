@@ -1,5 +1,4 @@
 package com.spark.accumulator
-import org.apache.spark.{SparkConf, SparkContext}
 /*
 class MyComplexV1(var x: Int, var y: Int) extends Serializable{
   def reset(): Unit = {

@@ -18,22 +18,20 @@ package com.spark.streaming.dstreams
  */
 
 
-import java.io.File
-import java.nio.charset.Charset
 import com.google.common.io.Files
-import com.spark.streaming.dstreams.HiveDstreamTransformer.{conf, kafkaParams, sc, ssc, stream, topics}
-import org.apache.kafka.clients.consumer.ConsumerRecord
+import com.spark.streaming.dstreams.HiveDstreamTransformer.conf
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.{SparkConf, SparkContext, TaskContext}
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.Row
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
-import org.apache.spark.streaming.kafka010.{CanCommitOffsets, HasOffsetRanges, KafkaUtils, OffsetRange}
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
-import org.apache.spark.streaming.{Durations, Seconds, StreamingContext, Time}
-import org.apache.spark.util.{IntParam, LongAccumulator}
+import org.apache.spark.streaming.kafka010.{CanCommitOffsets, HasOffsetRanges, KafkaUtils, OffsetRange}
+import org.apache.spark.streaming.{Durations, StreamingContext, Time}
+import org.apache.spark.util.LongAccumulator
+import org.apache.spark.{SparkConf, SparkContext, TaskContext}
 
+import java.io.File
+import java.nio.charset.Charset
 import java.util.UUID
 
 /**
@@ -115,7 +113,7 @@ object RecoverableKafkaWordCount {
   )
   val topics = Array("tweeter-tweets")
 
-  def createContext(outputPath: String, checkpointDirectory: String): StreamingContext = {
+  def createContext(checkpointDirectory: String, outputPath: String): StreamingContext = {
 
     // If you do not see this printed, that means the StreamingContext has been loaded
     // from the new checkpoint
@@ -189,6 +187,8 @@ object RecoverableKafkaWordCount {
   }
 
   def main(args: Array[String]): Unit = {
+
+
     /*
     if (args.length != 4) {
       System.err.println(s"Your arguments were ${args.mkString("[", ", ", "]")}")
@@ -208,8 +208,8 @@ object RecoverableKafkaWordCount {
     }
     */
 
-    val Array(checkpointDirectory, outputPath) = Array("/home/brijeshdhaker/dstreams/data/","/home/brijeshdhaker/IdeaProjects/spark-bigdata-examples/dstream.log")
-    val ssc = StreamingContext.getOrCreate(checkpointDirectory, () => createContext("/home/brijeshdhaker/dstreams/log/dstream.log", checkpointDirectory))
+    val Array(checkpointDirectory, outputPath) = Array("hdfs://namenode:9000/discretized-streams/data/kafka-word-count","hdfs://namenode:9000/discretized-streams/logs/kafka-word-count.log")
+    val ssc = StreamingContext.getOrCreate(checkpointDirectory, () => createContext(checkpointDirectory, outputPath))
 
     ssc.start()
     ssc.awaitTermination()

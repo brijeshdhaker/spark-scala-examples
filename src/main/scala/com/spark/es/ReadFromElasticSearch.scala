@@ -1,7 +1,6 @@
 package com.spark.es
 
 import org.apache.spark.sql.SparkSession
-import org.elasticsearch.spark.sql._
 
 object ReadFromElasticSearch {
 
@@ -22,8 +21,6 @@ object ReadFromElasticSearch {
       .config("es.net.http.auth.pass","admin")
       .config("es.nodes.wan.only", "true") // Needed for ES hosted on AWS
       .getOrCreate()
-
-    import spark.implicits._
 
     //indexDocuments.saveToEs("demoindex/albumindex")
     //val albums = spark.esDF("demoindex/albumindex")
