@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /*
-Create a Spark program to read the house data from in/RealEstate.csv,
+Problem :: Create a Spark program to read the house data from in/RealEstate.csv,
 output the average price for houses with different number of bedrooms.
 
 The houses data set contains a collection of recent reale state listings in SanLuis Obispo county and
