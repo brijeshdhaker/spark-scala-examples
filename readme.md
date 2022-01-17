@@ -36,7 +36,17 @@ export YARN_CONF_DIR=/opt/sandbox/hadoop-3.2.1/etc/hadoop
 #
 spark-submit \
 --name  spark-scala-example \
+--master yarn \
+--deploy-mode cluster \
+--conf spark.yarn.archive="hdfs://namenode:9000/archives/spark-3.1.2.zip" \
+--class com.spark.SparkPi \
+target/spark-scala-examples-1.0-SNAPSHOT.jar
+
+
+spark-submit \
+--name  spark-scala-example \
 --master local[4] \
+--conf spark.yarn.archive="hdfs://namenode:9000/archives/spark-3.1.2.zip" \
 --packages org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 \
 --class com.spark.streaming.structure.KafkaStructuredStream \
 target/spark-scala-examples-1.0-SNAPSHOT.jar
