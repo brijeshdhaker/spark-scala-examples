@@ -75,7 +75,7 @@ spark-submit --master yarn --deploy-mode cluster \
 --num-executors ${num_executors} 
 --executor-cores ${executor_cores} 
 --executor-memory ${executor_memory} \
---queue <realtime_queue> \
+--queue spark.cluster \
 --files <hdfs:///path/to/log4j-yarn.properties> \
 --conf spark.driver.extraJavaOptions=-Dlog4j.configuration=log4j-yarn.properties \
 --conf spark.executor.extraJavaOptions=-Dlog4j.configuration=log4j-yarn.properties \

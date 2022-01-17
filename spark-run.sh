@@ -22,7 +22,7 @@ $SPARK_HOME/bin/spark-submit \
 --name  spark-scala-example \
 --master yarn \
 --deploy-mode cluster \
---driver-memory 1024m \
+--driver-memory 640m \
 --driver-cores 1 \
 --num-executors 2 \
 --executor-memory 640m \

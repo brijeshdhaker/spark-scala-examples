@@ -3,6 +3,17 @@ package com.spark.pairRdd.sort
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
+/*
+Create a Spark program to read the an article from in/word_count.text,
+output the number of occurrence of each word in descending order.
+
+Sample output:
+    apple : 200
+    shoes : 193
+    bag : 176
+    ...
+*/
+
 object SortedWordCountSolution {
 
   def main(args: Array[String]) {
