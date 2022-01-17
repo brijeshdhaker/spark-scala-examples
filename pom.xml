@@ -149,6 +149,8 @@
                                 <argument>--executor-cores</argument>
                                 <argument>2</argument>
                                 <!-- -->
+                                <argument>--conf</argument>
+                                <argument>spark.yarn.queue=spark.client</argument>
                                 <!-- -->
                                 <argument>--packages</argument>
                                 <argument>org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2</argument>
@@ -189,6 +191,8 @@
                                 <argument>--executor-cores</argument>
                                 <argument>2</argument>
                                 <!-- -->
+                                <argument>--conf</argument>
+                                <argument>spark.yarn.queue=spark.cluster</argument>
                                 <!-- -->
                                 <argument>--packages</argument>
                                 <argument>org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2</argument>

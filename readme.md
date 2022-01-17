@@ -23,6 +23,9 @@ receiver_initial_rate=30
 #
 mvn exec:exec@run-local -Drunclass=com.spark.SparkPi -Dparams="50"
 
+mvn exec:exec@yarn-client -Drunclass=com.spark.SparkPi -Dparams="50"
+
+mvn exec:exec@yarn-cluster -Drunclass=com.spark.SparkPi -Dparams="50"
 
 #
 #
