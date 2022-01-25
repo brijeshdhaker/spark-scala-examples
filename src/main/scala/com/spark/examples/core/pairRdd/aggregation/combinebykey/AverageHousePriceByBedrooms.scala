@@ -48,15 +48,15 @@ object AverageHousePriceByBedrooms {
     val housePricePairRdd = cleanedLines.map(line => (line.split(",")(3), line.split(",")(2).toDouble))
 
     //1st Argument : specify the what to do with value of the key when the first time key appears in partition.
-    val initialize = (x: Double) => (1, x)
+    val createCombiner = (x: Double) => (1, x)
 
     //2nd Argument : specify what to do with value of the key if the same key appears inside same partition
-    val combiner = (avgCount: AvgCount, x: Double) => (avgCount._1 + 1, avgCount._2 + x)
+    val mergeValue = (avgCount: AvgCount, x: Double) => (avgCount._1 + 1, avgCount._2 + x)
 
     //3rd Argument : specify what to do with the values of key across  other partitions
     val mergeCombiners = (avgCountA: AvgCount, avgCountB: AvgCount) => (avgCountA._1 + avgCountB._1, avgCountA._2 + avgCountB._2)
 
-    val housePriceTotal = housePricePairRdd.combineByKey(initialize, combiner, mergeCombiners)
+    val housePriceTotal = housePricePairRdd.combineByKey(createCombiner, mergeValue, mergeCombiners)
 
     val housePriceAvg = housePriceTotal.mapValues(avgCount => avgCount._2 / avgCount._1)
     for ((bedrooms, avgPrice) <- housePriceAvg.collect()) println(bedrooms + " : " + avgPrice)

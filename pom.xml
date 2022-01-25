@@ -139,7 +139,7 @@
                                 <argument>client</argument>
                                 <!-- -->
                                 <argument>--driver-memory</argument>
-                                <argument>1024M</argument>
+                                <argument>640M</argument>
                                 <argument>--driver-cores</argument>
                                 <argument>1</argument>
                                 <argument>--num-executors</argument>
@@ -183,7 +183,7 @@
                                 <argument>cluster</argument>
                                 <!-- -->
                                 <argument>--driver-memory</argument>
-                                <argument>1024M</argument>
+                                <argument>640M</argument>
                                 <argument>--driver-cores</argument>
                                 <argument>1</argument>
                                 <argument>--num-executors</argument>
@@ -209,6 +209,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Use the shade plugin to remove all the provided artifacts (such as spark itself) from the jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

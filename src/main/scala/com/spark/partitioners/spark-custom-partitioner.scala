@@ -1,6 +1,7 @@
 package com.spark.partitioners
 
 import org.apache.spark.{Partitioner, SparkConf, SparkContext}
+
 class TwoPartsPartitioner(override val numPartitions: Int) extends Partitioner {
   def getPartition(key: Any): Int = key match {
     case s: String => {

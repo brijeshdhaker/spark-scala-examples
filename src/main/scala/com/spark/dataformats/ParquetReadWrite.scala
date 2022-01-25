@@ -10,7 +10,7 @@ object ParquetReadWrite {
       .master("local[1]")
       .appName("SparkByExamples.com")
       .getOrCreate()
-
+    /*
     val data = Seq(("James ", "", "Smith", "36636", "M", 3000),
       ("Michael ", "Rose", "", "40288", "M", 4000),
       ("Robert ", "", "Williams", "42114", "M", 4000),
@@ -42,8 +42,8 @@ object ParquetReadWrite {
     df3.explain()
     df3.printSchema()
     df3.show()
-
-    val parqDF3 = spark.read.parquet("/tmp/output/people2.parquet/gender=M")
+    */
+    val parqDF3 = spark.read.parquet("file:///apps/hostpath/datasets/airlineFlightData.parquet")
     parqDF3.show()
 
   }
