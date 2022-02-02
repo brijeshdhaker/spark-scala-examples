@@ -58,7 +58,7 @@ object HBaseDstreamTransformer extends App {
     }
   }
 
-  val conf = new SparkConf().setAppName("hive-stream-transformer").setMaster("local[4]")
+  val conf = new SparkConf().setAppName("hbase-stream-transformer").setMaster("local[4]")
   val sc = new SparkContext(conf)
   sc.setLogLevel("WARN")
   val ss = SparkSession.builder().enableHiveSupport().getOrCreate()

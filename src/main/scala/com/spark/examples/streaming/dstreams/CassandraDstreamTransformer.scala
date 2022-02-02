@@ -47,7 +47,7 @@ object CassandraDstreamTransformer extends App {
   }
 
   val conf = new SparkConf()
-    .setAppName("hive-stream-transformer")
+    .setAppName("Cassandra-Stream-Transformer")
     .set("spark.cassandra.connection.host", "127.0.0.1")
     .setMaster("local[4]")
 
