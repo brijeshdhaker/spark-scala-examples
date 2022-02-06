@@ -1,5 +1,6 @@
 package com.java.kafka;
 
+import com.java.utils.CommonUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -8,21 +9,15 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.Producer;
 
 import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 
 //import io.confluent.examples.clients.cloud.model.DataRecord;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import org.apache.kafka.common.errors.TopicExistsException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.Properties;
 import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 
 /*
@@ -55,7 +50,7 @@ public class ProducerExample {
         // Create the configuration file (e.g. at '$HOME/.confluent/java.config') with configuration parameters
         // to connect to your Kafka cluster, which can be on your local host, Confluent Cloud, or any other cluster.
         // Follow these instructions to create this file: https://docs.confluent.io/platform/current/tutorials/examples/clients/docs/java.html
-        final Properties props = loadConfig("/kafka_producer.properties");
+        final Properties props = CommonUtils.loadConfig("/kafka_producer.properties");
 
         // Create topic if needed
         final String topic = "test-partitioned-topic";
@@ -91,16 +86,6 @@ public class ProducerExample {
         producer.flush();
         System.out.printf("100 messages were produced to topic %s%n", topic);
         producer.close();
-    }
-
-    public static Properties loadConfig(final String configFile) throws IOException {
-        final Properties cfg = new Properties();
-        InputStream inputStream = inputStream = ProducerExample.class.getResourceAsStream(configFile);
-        cfg.load(inputStream);
-        if (inputStream != null){
-            inputStream.close();
-        }
-        return cfg;
     }
 
 }

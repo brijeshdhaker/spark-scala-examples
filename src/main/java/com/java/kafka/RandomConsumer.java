@@ -10,17 +10,17 @@ public class RandomConsumer{
     public static void main(String[] args) throws Exception{
 
         String topicName = "test-partitioned-topic";
-        KafkaConsumer<String, String> consumer = null;
 
         String groupName = "RG";
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092,localhost:9093");
+        props.put("bootstrap.servers", "kafka-broker:9092");
         props.put("group.id", groupName);
+        props.put("enable.auto.commit", "false");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("enable.auto.commit", "false");
 
-        consumer = new KafkaConsumer<>(props);
+
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         RebalanceListner rebalanceListner = new RebalanceListner(consumer);
 
         consumer.subscribe(Arrays.asList(topicName),rebalanceListner);
@@ -35,7 +35,7 @@ public class RandomConsumer{
                 //consumer.commitSync(rebalanceListner.getCurrentOffsets());
             }
         }catch(Exception ex){
-            System.out.println("Exception.");
+            System.out.println("Exception while processing kafka" + ex.getMessage());
             ex.printStackTrace();
         }
         finally{

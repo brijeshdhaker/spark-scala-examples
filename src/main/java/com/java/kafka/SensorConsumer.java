@@ -1,6 +1,8 @@
 package com.java.kafka;
 
 import java.util.*;
+
+import com.java.utils.CommonUtils;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.*;
 import java.sql.*;
@@ -19,29 +21,35 @@ public class SensorConsumer{
         String topicName = "SensorTopic";
         int rCount;
 
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "kafka-broker:9092");
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("enable.auto.commit", "false");
+        Properties props = CommonUtils.loadConfig("/kafka_consumer.properties");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         TopicPartition p0 = new TopicPartition(topicName, 0);
         TopicPartition p1 = new TopicPartition(topicName, 1);
         TopicPartition p2 = new TopicPartition(topicName, 2);
+        TopicPartition p3 = new TopicPartition(topicName, 3);
+        TopicPartition p4 = new TopicPartition(topicName, 4);
 
-        consumer.assign(Arrays.asList(p0,p1,p2));
+        consumer.assign(Arrays.asList(p0,p1,p2,p3,p4));
         System.out.println("Current position p0=" + consumer.position(p0)
                 + " p1=" + consumer.position(p1)
-                + " p2=" + consumer.position(p2));
+                + " p2=" + consumer.position(p2)
+                + " p3=" + consumer.position(p3)
+                + " p4=" + consumer.position(p4));
 
         consumer.seek(p0, getOffsetFromDB(p0));
         consumer.seek(p1, getOffsetFromDB(p1));
         consumer.seek(p2, getOffsetFromDB(p2));
+        consumer.seek(p3, getOffsetFromDB(p3));
+        consumer.seek(p4, getOffsetFromDB(p4));
 
         System.out.println("New positions po=" + consumer.position(p0)
                 + " p1=" + consumer.position(p1)
-                + " p2=" + consumer.position(p2));
+                + " p2=" + consumer.position(p2)
+                + " p3=" + consumer.position(p3)
+                + " p4=" + consumer.position(p4));
 
         System.out.println("Start Fetching Now");
         try{
@@ -65,7 +73,7 @@ public class SensorConsumer{
         long offset = 0;
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/KAFKA_SENSORDB","brijeshdhaker","Accoo7@k47");
             String sql = "select offset from sensor_offsets where `topic_name`='" + p.topic() + "' and `partition`=" + p.partition();
 
@@ -84,7 +92,8 @@ public class SensorConsumer{
     private static void saveAndCommit(KafkaConsumer<String, String> c, ConsumerRecord<String, String> r){
         System.out.println("Topic=" + r.topic() + " Partition=" + r.partition() + " Offset=" + r.offset() + " Key=" + r.key() + " Value=" + r.value());
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/KAFKA_SENSORDB","brijeshdhaker","Accoo7@k47");
             con.setAutoCommit(false);
 

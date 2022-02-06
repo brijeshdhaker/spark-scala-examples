@@ -1,12 +1,11 @@
 package com.java.kafka;
 
+import com.java.utils.CommonUtils;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.errors.TopicExistsException;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Properties;
@@ -35,16 +34,8 @@ public class SensorProducer {
     }
 
     public static void main(final String[] args) throws Exception {
-        /*if (args.length != 2) {
-            System.out.println("Please provide command line arguments: configPath topic");
-            System.exit(1);
-        }*/
 
-        // Load properties from a local configuration file
-        // Create the configuration file (e.g. at '$HOME/.confluent/java.config') with configuration parameters
-        // to connect to your Kafka cluster, which can be on your local host, Confluent Cloud, or any other cluster.
-        // Follow these instructions to create this file: https://docs.confluent.io/platform/current/tutorials/examples/clients/docs/java.html
-        final Properties props = loadConfig("/kafka_producer.properties");
+        final Properties props = CommonUtils.loadConfig("/kafka_producer.properties");
 
         // Create topic if needed
         final String topic = "SensorTopic";
@@ -63,7 +54,7 @@ public class SensorProducer {
         for (Long i = 1L; i <= numMessages; i++) {
 
             String key = i.toString();
-            String  record = new String("Hello - " + i.toString());
+            String  record = new String("Event - " + i.toString());
 
             System.out.printf("Producing record: %s\t%s%n", key, record);
             producer.send(new ProducerRecord<String, String>(topic, key, record), new Callback() {
@@ -80,16 +71,6 @@ public class SensorProducer {
         producer.flush();
         System.out.printf("100 messages were produced to topic %s%n", topic);
         producer.close();
-    }
-
-    public static Properties loadConfig(final String configFile) throws IOException {
-        final Properties cfg = new Properties();
-        InputStream inputStream = inputStream = SensorProducer.class.getResourceAsStream(configFile);
-        cfg.load(inputStream);
-        if (inputStream != null){
-            inputStream.close();
-        }
-        return cfg;
     }
 
 }
