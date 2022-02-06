@@ -17,7 +17,6 @@ public class SensorConsumer{
     public static void main(String[] args) throws Exception{
 
         String topicName = "SensorTopic";
-        KafkaConsumer<String, String> consumer = null;
         int rCount;
 
         Properties props = new Properties();
@@ -26,7 +25,7 @@ public class SensorConsumer{
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("enable.auto.commit", "false");
 
-        consumer = new KafkaConsumer<>(props);
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         TopicPartition p0 = new TopicPartition(topicName, 0);
         TopicPartition p1 = new TopicPartition(topicName, 1);
         TopicPartition p2 = new TopicPartition(topicName, 2);
