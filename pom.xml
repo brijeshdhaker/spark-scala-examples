@@ -417,6 +417,12 @@
             <version>3.2.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-aws</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
         <!-- HBase 2.4.9 -->
         <dependency>
             <groupId>org.apache.hbase</groupId>
