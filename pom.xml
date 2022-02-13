@@ -46,7 +46,6 @@
                 </includes>
             </testResource>
         </testResources>
-
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -263,8 +262,7 @@
                         </filter>
                     </filters>
                     <transformers>
-                        <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>net.martinprobson.spark.SparkTest</mainClass>
                         </transformer>
                     </transformers>
